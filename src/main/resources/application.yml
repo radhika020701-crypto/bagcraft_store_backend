@@ -1,0 +1,39 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  datasource:
+    # Oracle Autonomous DB (Free Tier) connection.
+    # If you download the "Wallet" from OCI, point TNS_ADMIN to its folder and
+    # use a URL like: jdbc:oracle:thin:@bagcraftdb_high?TNS_ADMIN=/path/to/wallet
+    url: jdbc:oracle:thin:@localhost:1521
+    username: SYSTEM
+    password: Oracle123
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: false
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.OracleDialect
+        format_sql: true
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 5MB
+
+jwt:
+  secret: ${JWT_SECRET:change-this-to-a-long-random-secret-in-production-please-32chars+}
+  expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
+stripe:
+  secret-key: ${STRIPE_SECRET_KEY:sk_test_xxxxx}
+
+app:
+  cors:
+    allowed-origins: ${ALLOWED_ORIGINS:http://localhost:5173}
+
+logging:
+  level:
+    org.springframework.security: INFO
